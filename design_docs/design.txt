@@ -1,0 +1,13 @@
+The BNW game engine is designed to provide a basic framework for building text adventures in Python.  It provides a command parser and basic world structure upon which students may build out a playable game.
+
+Architectural choices:
+ - The world is based on a 2D cartesian coordinate system of integer addresses.  Movement between places is restricted to adjacent addresses in the NESW directions only.  The game starts at address (0,0)
+ - There is one human player in the game.  NPCs are treated as things.
+ - There are a limited set of fundamental commands that affects the player.  Examples are : movement, inventory, health check.  
+ - All other commands are managed by executing the command upon the referenced thing.  The thing may rely on the Thing base class to handle basic commands (e.g. take), but must override commands in order to change behavior or provide object-specific commands.
+ - There are 4 fundamental classes:
+   - World
+   - Player
+   - Place
+   - Thing
+- 

@@ -1,0 +1,28 @@
+The game engine needs to be able to:
+
+  Display the game script (story):
+    - Text-wrapped to n chars (suggest 70)
+    - Optional special effects, like "typing"
+
+  Capture user input:
+    - Sanitize (lower) and optionally remove articles ("the", "a", etc)
+    - Split into a list 
+    - Validate commands and objects (is "objects" correct here? I'm talking about the object of the command, e.g., print(object))
+    - Build and run commands
+    - Handle exceptions -> Help
+
+  Update player status:
+    - Manage inventory transfers
+    - Update player location
+    - Optionally manage "health"
+    - Optionally save player status to a file
+
+  Manage game flow:
+    - Branch based on player decisions
+
+Datasets:
+  - Scripts (including branching commands)
+  - Places
+  - Things
+  - Player
+  - Commands
