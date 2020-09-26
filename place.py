@@ -28,6 +28,11 @@ class Place:
     print('You are in', self.name)
     if do_describe or not self.visited:
       print(self.description)
+      if len(self.contents) > 0:
+        items = []
+        for i in self.contents:
+          items.append(i.get_name())
+        print('You see:', *items)
       self.visited = True
       return True
     return False
@@ -43,3 +48,6 @@ class Place:
 
   def take_item(self, item):
     self.contents.remove(item)
+
+  def put_item(self, item):
+    self.contents.add(item)

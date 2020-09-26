@@ -3,7 +3,7 @@
 from direction import Direction
 
 class Player:
-  def __init__(self, address=(0,0), health=100, inventory={}):
+  def __init__(self, address=(0,0), health=100, inventory=set()):
     self.address = address # Begin at the origin
     self.health = health # integer 0-100
     self.inventory = inventory # set of things
@@ -15,7 +15,12 @@ class Player:
     return self.health
 
   def print_inventory(self):
-    print(self.inventory)
+    items = []
+    for i in self.inventory:
+      items.append(i.get_name())
+    if len(items) == 0:
+      items = ['nothing']
+    print('You have:', *items)
 
   def is_alive(self):
     return self.health > 0
@@ -43,3 +48,9 @@ class Player:
       if i.get_name() == item_name:
         return i
     return None
+
+  def put_in_inventory(self, item):
+    self.inventory.add(item)
+
+  def remove_from_inventory(self, item):
+    self.inventory.remove(item)
