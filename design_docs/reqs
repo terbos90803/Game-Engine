@@ -19,6 +19,7 @@ The game engine needs to be able to:
 
   Manage game flow:
     - Branch based on player decisions
+    - Help
 
 Datasets:
   - Scripts (including branching commands)

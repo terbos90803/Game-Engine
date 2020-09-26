@@ -24,6 +24,6 @@ class World:
         if place.describe(do_describe):
           exits = []
           for d in Direction:
-            if self.check_valid_address(Direction.offset(address, d.value)):
+            if self.check_valid_address(Direction.offset(place.get_address(), d.value)):
               exits.append(d.name.lower())
           print('You can go:', *exits)

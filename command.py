@@ -28,7 +28,7 @@ class Command:
         self.player.die()
 
     def help(self):
-      print('Commands: quit, look, inventory, north, south, east, west, examine [thing]')
+      print('Commands: quit, look, inventory, north, south, east, west, examine [thing], use [thing]')
 
     def look(self):
         self.world.describe(self.player, True)
@@ -64,6 +64,8 @@ class Command:
           item = place.get_item(self.noun)
           if item != None:
             item.execute(self.verb)
-            return            
+            return   
+          print('There is no {} here'.format(self.noun))
+          return
 
         print("You can't do that")

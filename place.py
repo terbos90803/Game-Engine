@@ -12,6 +12,9 @@ class Place:
   def get_name(self):
     return self.name
 
+  def get_address(self):
+    return self.address
+
   def get_description(self):
     return self.description
 
