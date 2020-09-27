@@ -5,9 +5,9 @@ import utils
 
 class Player:
   def __init__(self, address=(0,0), health=100, inventory=set()):
-    self.address = address # Begin at the origin
-    self.health = health # integer 0-100
-    self.inventory = inventory # set of things
+    self.address = address # 2-tuple : Begin at the origin
+    self.health = health # integer : percent healthy 0-100
+    self.inventory = inventory # set of Thing
 
   def get_address(self):
     return self.address

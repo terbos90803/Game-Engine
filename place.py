@@ -6,11 +6,11 @@ import utils
 
 class Place:
   def __init__(self, name, address, description, contents):
-    self.name = name # string
-    self.address = address # tuple
-    self.description = description # string
-    self.contents = contents # set of things
-    self.visited = False
+    self.name = name # string : short name for this Place
+    self.address = address # 2-tuple : cartesian address of this Place
+    self.description = description # string : full description of this Place
+    self.contents = contents # set of Thing : the things that start out in this Place
+    self.visited = False # Boolean : has the player been here before?
 
   def get_name(self):
     return self.name
