@@ -6,7 +6,8 @@ class Thing:
     self.description = description
     self.commands = {
       'examine': self.examine,
-      'use': self.use
+      'use': self.use,
+      'combine': self.combine
     }
 
   def get_name(self):
@@ -18,18 +19,33 @@ class Thing:
   def replace_command(self, command, method):
     self.commands[command] = method
 
-  def examine(self, world, player, place, in_inventory):
+  def examine(self, word_list, world, player, place, in_inventory):
     print(self.description)
-    return True
 
-  def use(self, world, player, place, in_inventory):
+  def use(self, word_list, world, player, place, in_inventory):
     print('nothing happens')
-    return True
 
-  def execute(self, verb, world, player, place, in_inventory):
+  def combine(self, word_list, world, player, place, in_inventory):
+    print('nothing happens')
+
+  def execute(self, verb, word_list, world, player, place, in_inventory):
     # print('command:', verb, self.name)
     if verb in self.commands:
-      if self.commands[verb](world, player, place, in_inventory):
-        return
-    
-    print("You can't {} the {}".format(verb, self.name))
+      self.commands[verb](word_list, world, player, place, in_inventory)
+    else:
+      print("You can't {} the {}".format(verb, self.name))
+
+  def combine_things(self, word_list, player, in_inventory, valid_others):
+    if not in_inventory:
+      print("You're not holding the", self.get_name())
+    elif len(word_list) < 3:
+      print('Combine the {} with what?'.format(self.get_name()))
+    else:
+      othername = word_list[2]
+      other = player.get_in_inventory(othername)
+      if other == None:
+        print("You're not holding the", othername)
+      elif other.get_name() in valid_others:
+        return other
+    return None
+
