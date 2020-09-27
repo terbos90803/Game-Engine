@@ -36,6 +36,15 @@ class Place:
       for i in self.contents:
         items.append(i.get_name())
       utils.print_list('You see: ', items)
+  
+  def get_path_names(self):
+    names = []
+    for direction, path in self.paths.items():
+      names.append('{} {}'.format(path.get_name(), direction))
+    return names
+
+  def get_path(self, name):
+    return self.paths.get(name)
 
   # Describe this place
   def describe(self, force_describe = False):
@@ -43,7 +52,7 @@ class Place:
     if force_describe or not self.visited:
       print(self.description)
       self.print_contents()
-      utils.print_list('You can go: ', self.prune_directions(valid_directions))
+      utils.print_list('You can go: ', self.get_path_names())
       self.visited = True
 
   # Lookup an item by name in this Place.

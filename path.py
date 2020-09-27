@@ -5,6 +5,12 @@ class Path:
   def __init__(self, place):
     self.place = place # Place : where this path leads
 
+  def get_name(self):
+    return 'path'
+
+  def get_place(self):
+    return self.place
+
   def is_passable(self):
     return True
 
@@ -16,6 +22,14 @@ class Door(Path):
     self.open = open # Boolean : True when door is open
     self.locked = locked # Boolean : True when door is locked
     self.key = key # string : the correct key for this door
+
+  def get_name(self):
+    if self.locked:
+      return 'locked door'
+    elif self.open:
+      return 'open door'
+    else:
+      return 'closed door'
 
   def is_passable(self):
     return self.open

@@ -20,7 +20,6 @@ from objects import *
 # - name is a string
 # - description is a string
 # - contents is a set.  It can be the empty set: {}
-# - dictionary of paths from here to other places
 
 barn = Place(
   'the barn', 
@@ -43,12 +42,14 @@ house = Place(
 #
 start = barn
 
+
 #
 # Step 3: Connect the places together
 #
 
 # Use Path and Door to connect Places together.
 # Make sure each place is connected to something else.
+# If you can go both ways on a path, you have to say that in 2 places.
 # Your paper map is really important to get this right.
 
 barn.connect({

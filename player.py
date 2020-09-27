@@ -35,25 +35,18 @@ class Player:
   def die(self):
     self.health = 0
 
-  # Move to a new address
-  # TODO: This currently only checks for valid map directions.
-  # It does not check for doors or barriers.
-  def move_by(self, world, offset):
-    new_address = Direction.offset(self.address, offset)
-    if world.check_valid_address(new_address):
-      self.address = new_address
-    else:
-      print("You can't go that way")
-
   # Execute a player command.  Currently that means moving.
   # return True/False depending on whether or not this was a valid command
-  def do(self, command):
-    # command is a 1-word string
-    offset = Direction.get_offset(command)
-    if offset != None:
-      self.move_by(world, offset)
+  def do(self, verb):
+    # Check to see if the verb is a passable Path
+    path = self.place.get_path(verb)
+    if path != None:
+      if path.is_passable():
+        self.place = path.get_place()
+      else:
+        print('That way is blocked')
       return True
-    if command == 'health':
+    if verb == 'health':
       print('You are feeling {}% healthy'.format(self.get_health()))
       return True
     return False
