@@ -9,7 +9,7 @@ class Place:
     self.name = name # string : short name for this Place
     self.description = description # string : full description of this Place
     self.contents = contents # set of Thing : the things that start out in this Place
-    self.paths = dict() # dictionary of direction/Path : where you can go from here
+    self.connections = dict() # dictionary of direction/connection : where you can go from here
     self.visited = False # Boolean : has the player been here before?
 
   def get_name(self):
@@ -27,8 +27,8 @@ class Place:
   def contains(self, item):
     return item in self.contents
 
-  def connect(self, paths):
-    self.paths = paths
+  def add_connection(self, direction, place, path):
+    self.connections[direction] = (path, place)
 
   def print_contents(self):
     if len(self.contents) > 0:
@@ -39,12 +39,12 @@ class Place:
   
   def get_path_names(self):
     names = []
-    for direction, path in self.paths.items():
-      names.append('{} {}'.format(path.get_name(), direction))
+    for direction, connection in self.connections.items():
+      names.append('{} {}'.format(connection[0].get_name(), direction))
     return names
 
-  def get_path(self, name):
-    return self.paths.get(name)
+  def get_connection(self, name):
+    return self.connections.get(name)
 
   # Describe this place
   def describe(self, force_describe = False):

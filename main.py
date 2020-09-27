@@ -7,6 +7,9 @@ import map
 # Startup by initializing the world
 player = Player(map.start);
 
+# Display the introduction to the story
+print('You wake up itchy.\nYou have no idea how you got here.\n')
+
 # Loop until the end condition is met
 while (player.is_alive()):
   # Describe the current place

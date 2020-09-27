@@ -37,6 +37,10 @@ house = Place(
   'The abandonded house is falling apart at the seams', 
   {Battery()})
 
+pantry = Place(
+  'the pantry',
+  'The pantry has many empty shelves',
+  {})
 
 #
 # Step 2: Where to start
@@ -50,16 +54,9 @@ start = barn
 
 # Use Path and Door to connect Places together.
 # Make sure each place is connected to something else.
-# If you can go both ways on a path, you have to say that in 2 places.
 # Your paper map is really important to get this right.
 
-barn.connect({
-  'west': Path(yard)
-  })
-yard.connect({
-  'west': Door(house),
-  'east': Path(barn)
-  })
-house.connect({
-  'east': Door(yard)
-  })
+# connect('from direction leaving place1', place1, 'from direction leaving place2', place2, Path)
+connect('west', barn, 'east', yard, Path())
+connect('west', yard, 'east', house, Door())
+connect('north', pantry, 'south', house, Door(False, True, 'rock'))

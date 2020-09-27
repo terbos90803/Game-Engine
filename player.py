@@ -40,10 +40,10 @@ class Player:
   # return True/False depending on whether or not this was a valid command
   def do(self, verb):
     # Check to see if the verb is a passable Path
-    path = self.place.get_path(verb)
-    if path != None:
-      if path.is_passable():
-        self.place = path.get_place()
+    connection = self.place.get_connection(verb)
+    if connection != None:
+      if connection[0].is_passable():
+        self.place = connection[1]
       else:
         print('That way is blocked')
       return True
