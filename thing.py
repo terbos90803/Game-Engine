@@ -33,19 +33,19 @@ class Thing:
   def replace_command(self, command, method):
     self.commands[command] = method
 
-  def examine(self, word_list, world, player, place, in_inventory):
+  def examine(self, word_list, player, place, in_inventory):
     print(self.description)
 
-  def use(self, word_list, world, player, place, in_inventory):
+  def use(self, word_list, player, place, in_inventory):
     print('nothing happens')
 
-  def combine(self, word_list, world, player, place, in_inventory):
+  def combine(self, word_list, player, place, in_inventory):
     print('nothing happens')
 
-  def execute(self, verb, word_list, world, player, place, in_inventory):
+  def execute(self, verb, word_list, player, place, in_inventory):
     # print('command:', verb, self.name)
     if verb in self.commands:
-      self.commands[verb](word_list, world, player, place, in_inventory)
+      self.commands[verb](word_list, player, place, in_inventory)
     else:
       print("You can't {} the {}".format(verb, self.name))
 

@@ -28,13 +28,13 @@ class Flashlight(Thing):
   }
 
   # When we examine the Flashlight, describe it, but also show what state it's in
-  def examine(self, word_list, world, player, place, in_inventory):
+  def examine(self, word_list, player, place, in_inventory):
     print(self.description)
     print('The flashlight is', self.state)
 
   # When we use the Flashlight, make sure we're holding it first.
   # Then use the on_use dictionary to figure out what happens.
-  def use(self, word_list, world, player, place, in_inventory):
+  def use(self, word_list, player, place, in_inventory):
     if not in_inventory:
       print("You're not holding the flashlight")
     else:
@@ -45,7 +45,7 @@ class Flashlight(Thing):
   # When we combine the Flashlight with something else, make sure that's a legal action.
   # The only thing we can combine the Flashlight with is the battery.
   # If the other thing is the battery, then make the Flashlight work and hide the battery.
-  def combine(self, word_list, world, player, place, in_inventory):
+  def combine(self, word_list, player, place, in_inventory):
     other = self.combine_things(word_list, player, in_inventory, {'battery'})
     if other != None:
       self.new_battery()
@@ -70,7 +70,7 @@ class Battery(Thing):
     super().__init__('battery', 'a new battery', True)
   
   # This combine is very much like the one in Flashlight, but self and other are swapped
-  def combine(self, word_list, world, player, place, in_inventory):
+  def combine(self, word_list, player, place, in_inventory):
     other = self.combine_things(word_list, player, in_inventory, {'flashlight'})
     if other != None:
       other.new_battery()

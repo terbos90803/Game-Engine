@@ -2,9 +2,10 @@ ToDo:
 - integrate smart_output
 
 Doing:
-- rework movement to enable restrictions like doors
+- make doors work
 
 Done:
+- rework movement to enable restrictions like doors
 - add lots of comments
 - fill out track command
 - add combine

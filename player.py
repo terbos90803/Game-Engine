@@ -29,6 +29,7 @@ class Player:
     self.health += amount
     if self.health < 0:
       self.health = 0
+      print('You died')
     elif self.health > 100:
       self.health = 100
 

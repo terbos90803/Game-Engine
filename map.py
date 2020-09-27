@@ -12,6 +12,7 @@ from objects import *
 # Define functional objects in objects.py
 # Example: Flashlight needs to turn on and off, so it is a functional object
 
+
 #
 # Step 1: make all the Places
 #
