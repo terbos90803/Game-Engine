@@ -1,4 +1,4 @@
-# all the objects in the game
+# all the functional objects in the game
 
 from thing import Thing
 
@@ -13,7 +13,7 @@ from thing import Thing
 class Flashlight(Thing):
   def __init__(self):
     # Call the init of the base Thing to set the name and description
-    super().__init__('flashlight', 'an old flashlight')
+    super().__init__('flashlight', 'an old flashlight', True)
     self.state = 'dead' # start out dead
 
   # What happens when we 'use' the Flashlight depends on its state.
@@ -51,8 +51,8 @@ class Flashlight(Thing):
       self.new_battery()
       player.remove_from_inventory(other)
 
-  # When putting a battery in the Flashlight, it starts off.
-  # This is most important when changing a dead Flashlight into a working one.
+  # When putting a battery in the Flashlight, it changes from dead to off.
+  # This is used when changing a dead Flashlight into a working one.
   def new_battery(self):
     print('You put a fresh battery in the flashlight')
     self.state = 'off'
@@ -66,7 +66,8 @@ class Flashlight(Thing):
 # - combine battery flashlight
 class Battery(Thing):
   def __init__(self):
-    super().__init__('battery', 'a new battery')
+    # Call the init of the base Thing to set the name and description
+    super().__init__('battery', 'a new battery', True)
   
   # This combine is very much like the one in Flashlight, but self and other are swapped
   def combine(self, word_list, world, player, place, in_inventory):

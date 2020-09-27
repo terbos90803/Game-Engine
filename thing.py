@@ -11,9 +11,10 @@
 # Look at the examples in objects.py to see how to do this.
 
 class Thing:
-  def __init__(self, name, description):
-    self.name = name
-    self.description = description
+  def __init__(self, name, description, can_take):
+    self.name = name # string : one word name
+    self.description = description # string : full description
+    self.can_take = can_take # Boolean : thing can be picked up
     self.commands = {
       'examine': self.examine,
       'use': self.use,
@@ -22,6 +23,9 @@ class Thing:
 
   def get_name(self):
     return self.name
+
+  def is_takeable(self):
+    return self.can_take
   
   def add_command(self, command):
     self.commands.add(command)

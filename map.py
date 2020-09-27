@@ -29,6 +29,6 @@ from objects import *
 # Use a paper map to plan everything carefully.
 map = {
   Place('the barn', (0,0), 'The old barn is full of hay and the smell of animals', {Flashlight()}),
-  Place('the yard', (-1,0), 'The yard between the barn and the house is overgrown with weeds', {Thing('rock', 'just a rock')}),
+  Place('the yard', (-1,0), 'The yard between the barn and the house is overgrown with weeds', {Thing('rock', 'a small rock', True), Thing('boulder', 'a large boulder', False)}),
   Place('the house', (-2,0), 'The abandonded house is falling apart at the seams', {Battery()})
 }

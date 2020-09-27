@@ -54,9 +54,12 @@ class Command:
         place = self.world.get_current_place(self.player)
         item = place.get_item(self.noun)
         if item != None:
-          place.remove_item(item)
-          self.player.put_in_inventory(item)
-          print('You picked up the', self.noun)
+          if item.is_takeable():
+            place.remove_item(item)
+            self.player.put_in_inventory(item)
+            print('You picked up the', self.noun)
+          else:
+            print("You can't pick that up")
         else:
           print('There is no {} here'.format(self.noun))
       else:
