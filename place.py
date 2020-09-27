@@ -1,5 +1,7 @@
 # Defines the class of places
 
+import utils
+
 # The methods on this class are mostly accessors and should be self-explanatory
 
 class Place:
@@ -33,8 +35,7 @@ class Place:
       items = []
       for i in self.contents:
         items.append(i.get_name())
-      print('You see: ', end='')
-      print(*items, sep=', ')
+      utils.print_list('You see: ', items)
 
   # Remove directions from a list if you have closed doors or barriers
   # This method is the default implementation for all placed and must not change anything
@@ -52,8 +53,7 @@ class Place:
     if do_describe or not self.visited:
       print(self.description)
       self.print_contents()
-      print('You can go: ', end='')
-      print(*self.prune_directions(valid_directions), sep=', ')
+      utils.print_list('You can go: ', self.prune_directions(valid_directions))
       self.visited = True
 
   # Lookup an item by name in this Place.
@@ -64,7 +64,7 @@ class Place:
         return i;
     return None
 
-  def take_item(self, item):
+  def remove_item(self, item):
     if item in self.contents:
       self.contents.remove(item)
 

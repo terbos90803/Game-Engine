@@ -38,7 +38,7 @@ class Command:
 
     # Display the list of valid commands
     def help(self):
-      print('Commands: quit, look, inventory, north, south, east, west, examine [thing], take [thing], use [thing], drop [thing], combine [thing1] [thing2]')
+      print('Commands: quit, look, inventory, health, north, south, east, west, examine [thing], take [thing], use [thing], drop [thing], combine [thing1] [thing2]')
 
     # Display the full description of the current location even the player has been there before
     def look(self):
@@ -54,7 +54,7 @@ class Command:
         place = self.world.get_current_place(self.player)
         item = place.get_item(self.noun)
         if item != None:
-          place.take_item(item)
+          place.remove_item(item)
           self.player.put_in_inventory(item)
           print('You picked up the', self.noun)
         else:

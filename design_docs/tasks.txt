@@ -1,8 +1,8 @@
 ToDo:
 - integrate smart_output
-- rework movement to enable restrictions like doors
 
 Doing:
+- rework movement to enable restrictions like doors
 
 Done:
 - add lots of comments

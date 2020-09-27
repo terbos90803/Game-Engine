@@ -1,6 +1,7 @@
 # Defines the player
 
 from direction import Direction
+import utils
 
 class Player:
   def __init__(self, address=(0,0), health=100, inventory=set()):
@@ -20,8 +21,7 @@ class Player:
       items.append(i.get_name())
     if len(items) == 0:
       items = ['nothing']
-    print('You have: ', end='')
-    print(*items, sep=', ')
+    utils.print_list('You have: ', items)
 
   def is_alive(self):
     return self.health > 0
@@ -53,6 +53,9 @@ class Player:
     offset = Direction.get_offset(command)
     if offset != None:
       self.move_by(world, offset)
+      return True
+    if command == 'health':
+      print('You are feeling {}% healthy'.format(self.get_health()))
       return True
     return False
 
