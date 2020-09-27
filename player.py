@@ -20,7 +20,8 @@ class Player:
       items.append(i.get_name())
     if len(items) == 0:
       items = ['nothing']
-    print('You have:', *items)
+    print('You have: ', end='')
+    print(*items, sep=', ')
 
   def is_alive(self):
     return self.health > 0

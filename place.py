@@ -31,8 +31,10 @@ class Place:
         items = []
         for i in self.contents:
           items.append(i.get_name())
-        print('You see:', *items)
-      print('You can go:', *valid_directions)
+        print('You see: ', end='')
+        print(*items, sep=', ')
+      print('You can go: ', end='')
+      print(*valid_directions, sep=', ')
       self.visited = True
 
   def get_item(self, item_name):

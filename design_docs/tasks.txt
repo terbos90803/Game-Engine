@@ -6,6 +6,7 @@ ToDo:
 Doing:
 
 Done:
+- add combine
 - rework commands dealing with things: take, drop, examine, use
 - develop smart_output
 - develop basic game framework including: world, player, place, thing, command, map, direction
