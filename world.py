@@ -21,9 +21,8 @@ class World:
 
     def describe(self, player, do_describe=False):
         place = self.get_current_place(player)
-        if place.describe(do_describe):
-          exits = []
-          for d in Direction:
-            if self.check_valid_address(Direction.offset(place.get_address(), d.value)):
-              exits.append(d.name.lower())
-          print('You can go:', *exits)
+        valid_directions = []
+        for d in Direction:
+          if self.check_valid_address(Direction.offset(place.get_address(), d.value)):
+            valid_directions.append(d.name.lower())
+        place.describe(valid_directions, do_describe)

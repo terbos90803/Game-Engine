@@ -25,6 +25,13 @@ class Player:
   def is_alive(self):
     return self.health > 0
 
+  def change_health(self, amount):
+    self.health += amount
+    if self.health < 0:
+      self.health = 0
+    elif self.health > 100:
+      self.health = 100
+
   def die(self):
     self.health = 0
 
@@ -50,7 +57,9 @@ class Player:
     return None
 
   def put_in_inventory(self, item):
-    self.inventory.add(item)
+    if item != None:
+      self.inventory.add(item)
 
   def remove_from_inventory(self, item):
-    self.inventory.remove(item)
+    if item in self.inventory:
+      self.inventory.remove(item)

@@ -4,44 +4,32 @@ class Thing:
   def __init__(self, name, description):
     self.name = name
     self.description = description
+    self.commands = {
+      'examine': self.examine,
+      'use': self.use
+    }
 
   def get_name(self):
     return self.name
   
-  def get_description(self):
-    return self.description
-
   def add_command(self, command):
-    self.commands.append(command)
+    self.commands.add(command)
 
-  def examine(self, world, player, place):
+  def replace_command(self, command, method):
+    self.commands[command] = method
+
+  def examine(self, world, player, place, in_inventory):
     print(self.description)
     return True
 
-  def take(self, world, player, place):
-    place.take_item(self)
-    player.put_in_inventory(self)
+  def use(self, world, player, place, in_inventory):
+    print('nothing happens')
     return True
-    
-  def drop(self, world, player, place):
-    place.put_item(self)
-    player.remove_from_inventory(self)
-    return True
-    
-  def use(self, world, player, place):
-    pass
 
-  commands = {
-    'examine': examine,
-    'use': use,
-    'take': take,
-    'drop': drop
-  }
-
-  def execute(self, world, player, place, verb):
+  def execute(self, verb, world, player, place, in_inventory):
     # print('command:', verb, self.name)
     if verb in self.commands:
-      if self.commands[verb](self, world, player, place):
+      if self.commands[verb](world, player, place, in_inventory):
         return
     
     print("You can't {} the {}".format(verb, self.name))

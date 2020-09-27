@@ -1,0 +1,11 @@
+ToDo:
+- integrate smart_output
+- add lots of comments
+- rework movement to enable restrictions like doors
+
+Doing:
+
+Done:
+- rework commands dealing with things: take, drop, examine, use
+- develop smart_output
+- develop basic game framework including: world, player, place, thing, command, map, direction

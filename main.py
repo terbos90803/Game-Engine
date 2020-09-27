@@ -11,7 +11,7 @@ player = Player();
 
 # Loop until the end condition is met
 while (player.is_alive()):
-  # Describing the current place
+  # Describe the current place
   world.describe(player)
 
   # prompt for command
@@ -19,6 +19,9 @@ while (player.is_alive()):
 
   # execute command
   command.execute()
+
+  # whitespace
+  print()
 
 # game over
 print('Thanks for playing!')
