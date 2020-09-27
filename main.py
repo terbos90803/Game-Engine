@@ -24,4 +24,4 @@ while (player.is_alive()):
   print()
 
 # game over
-print('Thanks for playing!')
+print('Game Over\nThanks for playing!')

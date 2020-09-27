@@ -1,11 +1,12 @@
 ToDo:
 - integrate smart_output
-- add lots of comments
 - rework movement to enable restrictions like doors
 
 Doing:
 
 Done:
+- add lots of comments
+- fill out track command
 - add combine
 - rework commands dealing with things: take, drop, examine, use
 - develop smart_output

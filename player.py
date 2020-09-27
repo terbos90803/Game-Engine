@@ -36,6 +36,9 @@ class Player:
   def die(self):
     self.health = 0
 
+  # Move to a new address
+  # TODO: This currently only checks for valid map directions.
+  # It does not check for doors or barriers.
   def move_by(self, world, offset):
     new_address = Direction.offset(self.address, offset)
     if world.check_valid_address(new_address):
@@ -43,6 +46,8 @@ class Player:
     else:
       print("You can't go that way")
 
+  # Execute a player command.  Currently that means moving.
+  # return True/False depending on whether or not this was a valid command
   def do(self, world, command):
     # command is a 1-word string
     offset = Direction.get_offset(command)
@@ -51,6 +56,8 @@ class Player:
       return True
     return False
 
+  # Look for an item in the player's inventory by name.
+  # If found, return the item.
   def get_in_inventory(self, item_name):
     for i in self.inventory:
       if i.get_name() == item_name:

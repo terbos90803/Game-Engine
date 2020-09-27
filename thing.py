@@ -1,5 +1,15 @@
 # Define what a Thing is
 
+# This is the Thing base class.  It's useful for non-functional things.
+# If a specific thing has behaviors, derive from this class and put the behaviors there.
+# Examples of deriving functional things can be found in objects.py
+
+# The implementations of examine, use, and combine you'll find here don't do much.
+# That's ok.  Don't change them here.
+# If you need to change the behavior of a thing, override the examine, use, and/or combine
+# methods in your derived class.
+# Look at the examples in objects.py to see how to do this.
+
 class Thing:
   def __init__(self, name, description):
     self.name = name

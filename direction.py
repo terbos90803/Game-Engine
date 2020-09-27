@@ -1,5 +1,7 @@
 # Direction enum
 
+# Lists the four directions and specifies how each direction will change the address
+
 from enum import Enum
 
 class Direction(Enum):

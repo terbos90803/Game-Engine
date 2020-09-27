@@ -2,6 +2,8 @@
 
 from direction import Direction
 
+# The World class knows about the map and how to do a few basic things with Places.
+
 class World:
     def __init__(self, map):
         self.map = map
