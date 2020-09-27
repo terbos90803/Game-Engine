@@ -1,16 +1,15 @@
 # Defines the player
 
-from direction import Direction
 import utils
 
 class Player:
-  def __init__(self, address=(0,0), health=100, inventory=set()):
-    self.address = address # 2-tuple : Begin at the origin
+  def __init__(self, place, health=100, inventory=set()):
+    self.place = place # Place : Where the player is now
     self.health = health # integer : percent healthy 0-100
     self.inventory = inventory # set of Thing
 
-  def get_address(self):
-    return self.address
+  def get_place(self):
+    return self.place
     
   def get_health(self):
     return self.health
@@ -48,7 +47,7 @@ class Player:
 
   # Execute a player command.  Currently that means moving.
   # return True/False depending on whether or not this was a valid command
-  def do(self, world, command):
+  def do(self, command):
     # command is a 1-word string
     offset = Direction.get_offset(command)
     if offset != None:

@@ -1,6 +1,7 @@
 # The game map
 
 from place import Place
+from path import *
 from objects import *
 
 
@@ -11,24 +12,52 @@ from objects import *
 # Define functional objects in objects.py
 # Example: Flashlight needs to turn on and off, so it is a functional object
 
+#
+# Step 1: make all the Places
+#
 
-# Place(name, address, description, contents)
+# Place(name, description, contents, paths)
 # - name is a string
-# - address is a tuple with 2 numbers
 # - description is a string
 # - contents is a set.  It can be the empty set: {}
+# - dictionary of paths from here to other places
 
-# The order of the Places isn't important. Arrange them in a way that makes sense to you.
+barn = Place(
+  'the barn', 
+  'The old barn is full of hay and the smell of animals', 
+  {Flashlight()})
+
+yard = Place(
+  'the yard', 
+  'The yard between the barn and the house is overgrown with weeds', 
+  {Thing('rock', 'a small rock', True), Thing('boulder', 'a large boulder', False)})
+
+house = Place(
+  'the house', 
+  'The abandonded house is falling apart at the seams', 
+  {Battery()})
+
+
 #
-# It is very important that addresses all touch correctly.
-# i.e. (0,0) touches (1,0), but (0,0) does not touch (1,1) directly, you have to go
-# through (1,0) to get there.
+# Step 2: Where to start
 #
-# If there is a wall or door between (0,0) and (0,1), 
+start = barn
+
 #
-# Use a paper map to plan everything carefully.
-map = {
-  Place('the barn', (0,0), 'The old barn is full of hay and the smell of animals', {Flashlight()}),
-  Place('the yard', (-1,0), 'The yard between the barn and the house is overgrown with weeds', {Thing('rock', 'a small rock', True), Thing('boulder', 'a large boulder', False)}),
-  Place('the house', (-2,0), 'The abandonded house is falling apart at the seams', {Battery()})
-}
+# Step 3: Connect the places together
+#
+
+# Use Path and Door to connect Places together.
+# Make sure each place is connected to something else.
+# Your paper map is really important to get this right.
+
+barn.connect({
+  'west': Path(yard)
+  })
+yard.connect({
+  'west': Door(house),
+  'east': Path(barn)
+  })
+house.connect({
+  'east': Door(yard)
+  })

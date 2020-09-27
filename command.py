@@ -4,8 +4,7 @@
 
 class Command:
     # Converts input to lower case, splits words into a list
-    def __init__(self, world, player, prompt):
-        self.world = world
+    def __init__(self, player, prompt):
         self.player = player
 
         raw_input = input(prompt)
@@ -42,7 +41,7 @@ class Command:
 
     # Display the full description of the current location even the player has been there before
     def look(self):
-        self.world.describe(self.player, True)
+        self.player.get_place().describe(True)
 
     # List the items currently in the player's inventory
     def inventory(self):
@@ -51,7 +50,7 @@ class Command:
     # If possible, move an item from the current location into the player's inventory
     def take(self):
       if self.noun != None:
-        place = self.world.get_current_place(self.player)
+        place = self.player.get_place()
         item = place.get_item(self.noun)
         if item != None:
           if item.is_takeable():
@@ -68,7 +67,7 @@ class Command:
     # If possible, move an item from the player's inventory to the current location
     def drop(self):
       if self.noun != None:
-        place = self.world.get_current_place(self.player)
+        place = self.player.get_place()
         item = self.player.get_in_inventory(self.noun)
         if item != None:
           self.player.remove_from_inventory(item)
@@ -81,8 +80,8 @@ class Command:
     
     # Display helpful debugging information
     def track(self):
-      place = self.world.get_current_place(self.player)
-      print('Location:', place.get_address())
+      place = self.player.get_place()
+      print('Location:', place.get_name())
       print('Visited:', place.get_visited())
       place.print_contents()
       print('Health:', self.player.get_health())
@@ -109,12 +108,12 @@ class Command:
           return
 
         # Check to see if this is a player command
-        if self.player.do(self.world, self.verb):
+        if self.player.do(self.verb):
           return
 
         # For 2-word commands, check for commands on the thing
         if self.noun != None:
-          place = self.world.get_current_place(self.player)
+          place = self.player.get_place()
           # check the player's inventory for the item first
           in_inventory = True
           item = self.player.get_in_inventory(self.noun)
@@ -124,7 +123,7 @@ class Command:
             item = place.get_item(self.noun)
           if item != None:
             # found something, try the command on it
-            item.execute(self.verb, self.word_list, self.world, self.player, place, in_inventory)
+            item.execute(self.verb, self.word_list, self.player, place, in_inventory)
             return   
           print('There is no {} here'.format(self.noun))
           return

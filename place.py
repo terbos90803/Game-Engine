@@ -5,18 +5,15 @@ import utils
 # The methods on this class are mostly accessors and should be self-explanatory
 
 class Place:
-  def __init__(self, name, address, description, contents):
+  def __init__(self, name, description, contents):
     self.name = name # string : short name for this Place
-    self.address = address # 2-tuple : cartesian address of this Place
     self.description = description # string : full description of this Place
     self.contents = contents # set of Thing : the things that start out in this Place
+    self.paths = dict() # dictionary of direction/Path : where you can go from here
     self.visited = False # Boolean : has the player been here before?
 
   def get_name(self):
     return self.name
-
-  def get_address(self):
-    return self.address
 
   def get_description(self):
     return self.description
@@ -30,6 +27,9 @@ class Place:
   def contains(self, item):
     return item in self.contents
 
+  def connect(self, paths):
+    self.paths = paths
+
   def print_contents(self):
     if len(self.contents) > 0:
       items = []
@@ -37,20 +37,10 @@ class Place:
         items.append(i.get_name())
       utils.print_list('You see: ', items)
 
-  # Remove directions from a list if you have closed doors or barriers
-  # This method is the default implementation for all placed and must not change anything
-  # If you need to have special behavior for a specific place, then make a derived class
-  # from Place and change the behavior of prune_directions() there.
-  def prune_directions(self, directions):
-    return directions
-
   # Describe this place
-  # The list of valid_directions passed in is based on the map.
-  # If you have any doors or barriers in this place, then you need to remove directions
-  # from the list using prune_directions()
-  def describe(self, valid_directions, do_describe):
+  def describe(self, force_describe = False):
     print('You are in', self.name)
-    if do_describe or not self.visited:
+    if force_describe or not self.visited:
       print(self.description)
       self.print_contents()
       utils.print_list('You can go: ', self.prune_directions(valid_directions))

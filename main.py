@@ -1,26 +1,24 @@
 # The game starts here.  This is the home of the main game loop.
 
-from world import World
 from command import Command
 from player import Player
-from map import map
+import map
 
 # Startup by initializing the world
-world = World(map);
-player = Player();
+player = Player(map.start);
 
 # Loop until the end condition is met
 while (player.is_alive()):
   # Describe the current place
-  world.describe(player)
+  player.get_place().describe()
 
   # prompt for command
-  command = Command(world, player, "> ")
+  command = Command(player, "> ")
 
   # execute command
   command.execute()
 
-  # whitespace
+  # whitespace between turns
   print()
 
 # game over
