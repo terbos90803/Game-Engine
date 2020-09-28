@@ -25,6 +25,7 @@ while (player.is_alive()):
     command.execute()
   except:
     print('Something went wrong')
+    # raise # re-raise the exception for debugging
 
   # whitespace between turns
   print()
