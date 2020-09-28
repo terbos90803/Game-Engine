@@ -1,6 +1,7 @@
 # Get input from the player and parse it
 
 from path import Door
+import utils
 
 
 # A new command is created every time around the main loop
@@ -40,7 +41,7 @@ class Command:
 
     # Display the list of valid commands
     def help(self):
-      print('Commands: quit, look, inventory, health, north, south, east, west, examine [thing], take [thing], use [thing], drop [thing], combine [thing1] [thing2], open [thing/door], close [thing/door], unlock [thing/door] with [key]')
+      utils.type_quick(['Commands: quit, look, inventory, health, north, south, east, west, examine [thing], take [thing], use [thing], drop [thing], combine [thing1] [thing2], open [thing/door], close [thing/door], unlock [thing/door] with [key]'])
 
     # Display the full description of the current location even the player has been there before
     def look(self):
@@ -89,6 +90,8 @@ class Command:
         connection = self.player.get_place().get_connection(self.noun)
         if connection != None and isinstance(connection[0], Door):
           connection[0].open()
+        elif self.noun == 'door':
+          print('Which door do you want to open?  Try "open [direction]"')
         else:
           print('There is no door', self.noun)
 
@@ -100,6 +103,8 @@ class Command:
         connection = self.player.get_place().get_connection(self.noun)
         if connection != None and isinstance(connection[0], Door):
           connection[0].close()
+        elif self.noun == 'door':
+          print('Which door do you want to open?  Try "close [direction]"')
         else:
           print('There is no door', self.noun)
 
@@ -111,9 +116,18 @@ class Command:
         if len(self.word_list) < 4:
           print('What do you want to unlock {} with?'.format(self.noun))
         else:
-          connection = self.player.get_place().get_connection(self.noun)
-          if connection != None and isinstance(connection[0], Door):
-            connection[0].unlock(self.word_list[3])
+          keyname = self.word_list[3]
+          key = self.player.get_in_inventory(keyname)
+          if key != None:
+            connection = self.player.get_place().get_connection(self.noun)
+            if connection != None and isinstance(connection[0], Door):
+              connection[0].unlock(keyname)
+            elif self.noun == 'door':
+              print('Which door do you want to open?  Try "unlock [direction] with [key]"')
+            else:
+              print('There is no door', self.noun)
+          else:
+            print('You don\'t have the', keyname)
 
     # Display helpful debugging information
     def track(self):

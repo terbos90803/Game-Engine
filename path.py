@@ -9,6 +9,9 @@ class Path:
   def is_passable(self):
     return True
 
+  def why_blocked(self):
+    return 'not blocked'
+
 
 # A door can be open, closed, and locked
 class Door(Path):
@@ -28,12 +31,20 @@ class Door(Path):
   def is_passable(self):
     return self.is_open
 
+  def why_blocked(self):
+    if self.is_locked:
+      return 'The door is locked. Use the {} to unlock it.'.format(self.key)
+    elif self.is_open:
+      return 'The door is open.'
+    else:
+      return 'The door is closed. Open it first.'
+
   def open(self):
     if not self.is_locked:
       self.is_open = True
       print('Door opened')
     else:
-      print('The door is locked')
+      print(self.why_blocked())
 
   def close(self):
     self.is_open = False
@@ -49,12 +60,12 @@ class Door(Path):
 
 # Connect two places together
 # One Path will exist between two Places
-# - direction player will leave first Place
 # - first place
+# - direction player will leave first Place
+# - Path connecting the Places
 # - direction player will leave second Place
 # - second place
-# - Path connecting the Places
-def connect(direction1, place1, direction2, place2, path):
+def connect(place1, direction1, path, direction2, place2):
   place1.add_connection(direction1, place2, path)
   place2.add_connection(direction2, place1, path)
 

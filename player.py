@@ -45,7 +45,7 @@ class Player:
       if connection[0].is_passable():
         self.place = connection[1]
       else:
-        print('That way is blocked')
+        print(verb, 'is blocked.', connection[0].why_blocked())
       return True
     if verb == 'health':
       print('You are feeling {}% healthy'.format(self.get_health()))

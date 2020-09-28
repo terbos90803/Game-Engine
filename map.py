@@ -24,22 +24,22 @@ from objects import *
 
 barn = Place(
   'the barn', 
-  'The old barn is full of hay and the smell of animals', 
+  ['The old barn is full of hay and the smell of animals'], 
   {Flashlight()})
 
 yard = Place(
   'the yard', 
-  'The yard between the barn and the house is overgrown with weeds', 
+  ['The yard between the barn and the house is overgrown with weeds'], 
   {Thing('rock', 'a small rock', True), Thing('boulder', 'a large boulder', False)})
 
 house = Place(
   'the house', 
-  'The abandonded house is falling apart at the seams', 
+  ['The abandonded house is falling apart at the seams'], 
   {Battery()})
 
 pantry = Place(
   'the pantry',
-  'The pantry has many empty shelves',
+  ['The pantry has many empty shelves'],
   {})
 
 #
@@ -56,7 +56,18 @@ start = barn
 # Make sure each place is connected to something else.
 # Your paper map is really important to get this right.
 
-# connect('from direction leaving place1', place1, 'from direction leaving place2', place2, Path)
-connect('west', barn, 'east', yard, Path())
-connect('west', yard, 'east', house, Door())
-connect('north', pantry, 'south', house, Door(False, True, 'rock'))
+# connect(place1, 'direction leaving place1', Path, 'direction leaving place2', place2)
+#
+# The easy way to read this is from the outside in.
+#   connect(yard, 'east', Path(), 'west', barn)
+#     from the yard, go east through the Path to get to the barn
+#     from the barn, go west through the Path to get to the yard
+#
+# Note: the first/second order doesn't matter.
+#   connect(yard, 'east', Path(), 'west', barn)
+# is the same as
+#   connect(barn, 'west', Path(), 'east', yard)
+
+connect(yard, 'east', Path(), 'west', barn)
+connect(house, 'east', Door(), 'west', yard)
+connect(house, 'north', Door(False, True, 'rock'), 'south', pantry)

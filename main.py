@@ -3,12 +3,14 @@
 from command import Command
 from player import Player
 import map
+import utils
 
 # Startup by initializing the world
 player = Player(map.start);
 
 # Display the introduction to the story
-print('You wake up itchy.\nYou have no idea how you got here.\n')
+utils.type_slow(['You wake up itchy.', 'You have no idea how you got here.'])
+print()
 
 # Loop until the end condition is met
 while (player.is_alive()):
@@ -19,10 +21,13 @@ while (player.is_alive()):
   command = Command(player, "> ")
 
   # execute command
-  command.execute()
+  try:
+    command.execute()
+  except:
+    print('Something went wrong')
 
   # whitespace between turns
   print()
 
 # game over
-print('Game Over\nThanks for playing!')
+utils.type_slow(['Game Over', 'Thanks for playing!'])

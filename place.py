@@ -7,7 +7,7 @@ import utils
 class Place:
   def __init__(self, name, description, contents):
     self.name = name # string : short name for this Place
-    self.description = description # string : full description of this Place
+    self.description = description # string list : full description of this Place
     self.contents = contents # set of Thing : the things that start out in this Place
     self.connections = dict() # dictionary of direction/connection : where you can go from here
     self.visited = False # Boolean : has the player been here before?
@@ -48,9 +48,9 @@ class Place:
 
   # Describe this place
   def describe(self, force_describe = False):
-    print('You are in', self.name)
+    utils.type_slow(['You are in ' + self.name])
     if force_describe or not self.visited:
-      print(self.description)
+      utils.type_slow(self.description)
       self.print_contents()
       utils.print_list('You can go: ', self.get_path_names())
       self.visited = True

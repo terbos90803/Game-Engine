@@ -1,9 +1,9 @@
 ToDo:
-- integrate smart_output
 
 Doing:
 
 Done:
+- integrate smart_output
 - make doors work
 - rework movement to enable restrictions like doors
 - add lots of comments
