@@ -9,7 +9,7 @@ class Place:
     self.name = name # string : short name for this Place
     self.description = description # string list : full description of this Place
     self.contents = contents # set of Thing : the things that start out in this Place
-    self.connections = dict() # dictionary of direction/connection : where you can go from here
+    self.connections = dict() # dictionary of path,place : where you can go from here
     self.visited = False # Boolean : has the player been here before?
 
   def get_name(self):
