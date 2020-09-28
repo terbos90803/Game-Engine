@@ -19,7 +19,7 @@ from objects import *
 
 # Place(name, description, contents, paths)
 # - name is a string
-# - description is a string
+# - description is a string list
 # - contents is a set.  It can be the empty set: {}
 
 barn = Place(
