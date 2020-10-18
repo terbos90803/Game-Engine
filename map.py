@@ -24,7 +24,7 @@ from objects import *
 
 barn = Place(
   'the barn', 
-  ['The old barn is full of hay and the smell of animals'], 
+  ['The old barn is full of hay and the smell of animals', 'second paragraph'], 
   {Flashlight()})
 
 yard = Place(

@@ -48,9 +48,10 @@ class Place:
 
   # Describe this place
   def describe(self, force_describe = False):
-    utils.type_slow(['You are in ' + self.name])
+    typer = (utils.type_quick if self.visited else utils.type_slow)
+    typer(['You are in ' + self.name])
     if force_describe or not self.visited:
-      utils.type_slow(self.description)
+      typer(self.description)
       self.print_contents()
       utils.print_list('You can go: ', self.get_path_names())
       self.visited = True
