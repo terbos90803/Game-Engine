@@ -27,10 +27,7 @@ class Thing:
   def is_takeable(self):
     return self.can_take
   
-  def add_command(self, command):
-    self.commands.add(command)
-
-  def replace_command(self, command, method):
+  def add_command(self, command, method):
     self.commands[command] = method
 
   def examine(self, word_list, player, place, in_inventory):
