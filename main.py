@@ -3,19 +3,20 @@
 from command import Command
 from player import Player
 import map
-import utils
+import story
 
 # Startup by initializing the world
-player = Player(map.start);
+player = Player(map.start)
 
 # Display the introduction to the story
-utils.type_slow(['You wake up itchy.', 'You have no idea how you got here.'])
-print()
+story.display_intro(player)
 
 # Loop until the end condition is met
-while (player.is_alive()):
-  # Describe the current place
-  player.get_place().describe()
+while (player.is_playing()):
+  # Describe the current place and do any place action
+  place = player.get_place()
+  place.describe()
+  place.action(player)
 
   # prompt for command
   command = Command(player, "> ")
@@ -31,4 +32,4 @@ while (player.is_alive()):
   print()
 
 # game over
-utils.type_slow(['Game Over', 'Thanks for playing!'])
+story.display_ending(player)

@@ -71,3 +71,6 @@ class Place:
   def put_item(self, item):
     if item != None:
       self.contents.add(item)
+  
+  def action(self, player):
+    pass

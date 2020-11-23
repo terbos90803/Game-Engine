@@ -12,10 +12,8 @@ class Command:
         self.player = player
 
         raw_input = input(prompt)
-        # Convert the input to lower case:
-        smooth_input = raw_input.lower()
         # Convert the lower case input into a list:
-        self.word_list = smooth_input.split()
+        self.word_list = raw_input.split()
 
         # Are there any words at all?
         # The first word is always the verb
@@ -37,11 +35,28 @@ class Command:
 
     # Immediately quit the game
     def quit(self):
-        self.player.die()
+        self.player.quit()
 
     # Display the list of valid commands
     def help(self):
-      utils.type_quick(['Commands: quit, look, inventory, health, north, south, east, west, examine [thing], take [thing], use [thing], drop [thing], combine [thing1] [thing2], open [thing/door], close [thing/door], unlock [thing/door] with [key]'])
+      utils.type_quick([
+        'Basic Commands:', 
+        ' - quit - end the game',
+        ' - look - review the full description of the current place',
+        ' - inventory - list what you are holding',
+        ' - health - check your current health: 0-100%',
+        ' - [direction] - any direction you can go from here, e.g. north, south, east, west',
+        ' - examine [thing] - take a closer look at an object in this place or one you are holding',
+        ' - take [thing] - if possible, pick up an object and put it in your inventory',
+        ' - use [thing] - use a thing.  What happens depends on the thing.',
+        ' - drop [thing] - remove a thing from your inventory and drop it here',
+        ' - combine [thing1] [thing2] - if possible, combine two things together.  Sometimes, the order matters.  If thing1 thing2 doesn\'t work, try thing2 thing1.  You always have to be holding the first thing.',
+        ' - open [thing/door] - open an unlocked thing or door',
+        ' - close [thing/door] - close a thing or door',
+        ' - unlock [thing/door] with [key] - unlock a locked thing or door using the correct key.  You must be holding the key.',
+        '',
+        'Some places or things have additional commands you can learn about.'],
+        paragraph_space=0)
 
     # Display the full description of the current location even the player has been there before
     def look(self):
@@ -64,7 +79,7 @@ class Command:
           else:
             print("You can't pick that up")
         else:
-          print('There is no {} here'.format(self.noun))
+          print(f'There is no {self.noun} here')
       else:
         print('Name the thing to take')
       
@@ -88,12 +103,13 @@ class Command:
         print('What do you want to open?')
       else:
         connection = self.player.get_place().get_connection(self.noun)
-        if connection != None and isinstance(connection[0], Door):
-          connection[0].open()
-        elif self.noun == 'door':
-          print('Which door do you want to open?  Try "open [direction]"')
+        if connection != None:
+          if connection[0].can_openclose():
+            connection[0].open()
+          else:
+            print('You can\'t open', self.noun)
         else:
-          print('There is no door', self.noun)
+          print('Which way do you want to open?  Try "open [direction]"')
 
     # Look for something to close and try to close it
     def close(self):
@@ -101,12 +117,13 @@ class Command:
         print('What do you want to close?')
       else:
         connection = self.player.get_place().get_connection(self.noun)
-        if connection != None and isinstance(connection[0], Door):
-          connection[0].close()
-        elif self.noun == 'door':
-          print('Which door do you want to open?  Try "close [direction]"')
+        if connection != None:
+          if connection[0].can_openclose():
+            connection[0].close()
+          else:
+            print('You can\'t close', self.noun)
         else:
-          print('There is no door', self.noun)
+          print('Which way do you want to close?  Try "close [direction]"')
 
     # Look for something to unlock and try to unlock it
     def unlock(self):
@@ -114,18 +131,19 @@ class Command:
         print('What do you want to unlock?')
       else:
         if len(self.word_list) < 4:
-          print('What do you want to unlock {} with?'.format(self.noun))
+          print(f'What do you want to unlock {self.noun} with?')
         else:
           keyname = self.word_list[3]
           key = self.player.get_in_inventory(keyname)
           if key != None:
             connection = self.player.get_place().get_connection(self.noun)
-            if connection != None and isinstance(connection[0], Door):
-              connection[0].unlock(keyname)
-            elif self.noun == 'door':
-              print('Which door do you want to open?  Try "unlock [direction] with [key]"')
+            if connection != None:
+              if connection[0].can_unlock():
+                connection[0].unlock(keyname)
+              else:
+                print('You can\'t unlock', self.noun)
             else:
-              print('There is no door', self.noun)
+              print('Which way do you want to unlock?  Try "unlock [direction] with [key]"')
           else:
             print('You don\'t have the', keyname)
 
@@ -179,7 +197,7 @@ class Command:
             # found something, try the command on it
             item.execute(self.verb, self.word_list, self.player, place, in_inventory)
             return   
-          print('There is no {} here'.format(self.noun))
+          print(f'There is no {self.noun} here')
           return
 
         print("You can't do that")

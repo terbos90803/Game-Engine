@@ -1,5 +1,4 @@
 ToDo:
-- actions for places
 - actions for objects
 - improved fast/slow typer
 - improved help text formatting
@@ -12,6 +11,7 @@ ToDo:
 Doing:
 
 Done:
+- actions for places
 - integrate smart_output
 - make doors work
 - rework movement to enable restrictions like doors

@@ -7,6 +7,7 @@ class Player:
     self.place = place # Place : Where the player is now
     self.health = health # integer : percent healthy 0-100
     self.inventory = inventory # set of Thing
+    self.playing = True
 
   def get_place(self):
     return self.place
@@ -22,19 +23,25 @@ class Player:
       items = ['nothing']
     utils.print_list('You have: ', items)
 
+  def is_playing(self):
+    return self.playing and self.is_alive()
+
+  def quit(self):
+    self.playing = False
+
   def is_alive(self):
     return self.health > 0
 
   def change_health(self, amount):
     self.health += amount
-    if self.health < 0:
-      self.health = 0
-      print('You died')
+    if self.health <= 0:
+      self.die()
     elif self.health > 100:
       self.health = 100
 
   def die(self):
     self.health = 0
+    print('You died')
 
   # Execute a player command.  Currently that means moving.
   # return True/False depending on whether or not this was a valid command
@@ -47,8 +54,8 @@ class Player:
       else:
         print(verb, 'is blocked.', connection[0].why_blocked())
       return True
-    if verb == 'health':
-      print('You are feeling {}% healthy'.format(self.get_health()))
+    if utils.same_word(verb, 'health'):
+      print(f'You are feeling {self.get_health()}% healthy')
       return True
     return False
 
@@ -56,7 +63,7 @@ class Player:
   # If found, return the item.
   def get_in_inventory(self, item_name):
     for i in self.inventory:
-      if i.get_name() == item_name:
+      if utils.same_word(i.get_name(), item_name):
         return i
     return None
 

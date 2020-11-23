@@ -50,7 +50,7 @@ class Thing:
     if not in_inventory:
       print("You're not holding the", self.get_name())
     elif len(word_list) < 3:
-      print('Combine the {} with what?'.format(self.get_name()))
+      print(f'Combine the {self.get_name()} with what?')
     else:
       othername = word_list[2]
       other = player.get_in_inventory(othername)
