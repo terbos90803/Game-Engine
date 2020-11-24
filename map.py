@@ -3,6 +3,7 @@
 from place import Place
 from path import *
 from objects import *
+from places import *
 
 
 # For non-functional objects
@@ -30,17 +31,14 @@ barn = Place(
 yard = Place(
   'the yard', 
   ['The yard between the barn and the house is overgrown with weeds'], 
-  {Thing('rock', 'a small rock', True), Thing('boulder', 'a large boulder', False)})
+  {Thing('rock', 'a small rock'), Thing('boulder', 'a large boulder', can_take=False)})
 
 house = Place(
   'the house', 
   ['The abandonded house is falling apart at the seams'], 
   {Battery()})
 
-pantry = Place(
-  'the pantry',
-  ['The pantry has many empty shelves'],
-  set())
+pantry = Pantry()
 
 #
 # Step 2: Where to start
@@ -70,4 +68,4 @@ start = barn
 
 connect(yard, 'east', Path(), 'west', barn)
 connect(house, 'east', Door(), 'west', yard)
-connect(house, 'north', Door(False, True, 'rock'), 'south', pantry)
+connect(house, 'north', Door(is_locked=True, key='rock'), 'south', pantry)

@@ -74,3 +74,7 @@ class Player:
   def remove_from_inventory(self, item):
     if item in self.inventory:
       self.inventory.remove(item)
+
+  def action(self):
+    for i in self.inventory:
+      i.action(self, True)

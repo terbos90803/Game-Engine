@@ -9,14 +9,15 @@ import story
 player = Player(map.start)
 
 # Display the introduction to the story
-story.display_intro(player)
+story.intro(player)
 
 # Loop until the end condition is met
 while (player.is_playing()):
   # Describe the current place and do any place action
   place = player.get_place()
-  place.describe()
+  place.describe(player)
   place.action(player)
+  player.action()
 
   # prompt for command
   command = Command(player, "> ")
@@ -26,10 +27,10 @@ while (player.is_playing()):
     command.execute()
   except:
     print('Something went wrong')
-    # raise # re-raise the exception for debugging
+    raise # re-raise the exception for debugging
 
   # whitespace between turns
   print()
 
 # game over
-story.display_ending(player)
+story.ending(player)

@@ -18,7 +18,7 @@ class Command:
         # Are there any words at all?
         # The first word is always the verb
         if len(self.word_list) > 0:
-            self.verb = self.word_list[0]
+            self.verb = self.word_list[0].lower()
         else:
             self.verb = None
 
@@ -60,7 +60,7 @@ class Command:
 
     # Display the full description of the current location even the player has been there before
     def look(self):
-        self.player.get_place().describe(True)
+        self.player.get_place().describe(self.player, True)
 
     # List the items currently in the player's inventory
     def inventory(self):

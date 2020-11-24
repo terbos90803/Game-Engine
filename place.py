@@ -5,7 +5,7 @@ import utils
 # The methods on this class are mostly accessors and should be self-explanatory
 
 class Place:
-  def __init__(self, name, description, contents):
+  def __init__(self, name, description, contents=set()):
     self.name = name # string : short name for this Place
     self.description = description # string list : full description of this Place
     self.contents = contents # set of Thing : the things that start out in this Place
@@ -47,7 +47,7 @@ class Place:
     return self.connections.get(name)
 
   # Describe this place
-  def describe(self, force_describe = False):
+  def describe(self, player, force_describe = False):
     typer = (utils.type_quick if self.visited else utils.type_slow)
     typer(['You are in ' + self.name])
     if force_describe or not self.visited:
@@ -60,7 +60,7 @@ class Place:
   # return the item if it's here.
   def get_item(self, item_name):
     for i in self.contents:
-      if i.get_name() == item_name:
+      if utils.same_word(i.get_name(), item_name):
         return i;
     return None
 
@@ -73,4 +73,5 @@ class Place:
       self.contents.add(item)
   
   def action(self, player):
-    pass
+    for i in self.contents:
+      i.action(player, False)

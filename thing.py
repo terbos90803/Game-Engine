@@ -11,7 +11,7 @@
 # Look at the examples in objects.py to see how to do this.
 
 class Thing:
-  def __init__(self, name, description, can_take):
+  def __init__(self, name, description, can_take=True):
     self.name = name # string : one word name
     self.description = description # string : full description
     self.can_take = can_take # Boolean : thing can be picked up
@@ -60,3 +60,5 @@ class Thing:
         return other
     return None
 
+  def action(self, player, in_inventory):
+    pass

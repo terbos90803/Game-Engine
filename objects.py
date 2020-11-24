@@ -13,7 +13,7 @@ from thing import Thing
 class Flashlight(Thing):
   def __init__(self):
     # Call the init of the base Thing to set the name and description
-    super().__init__('flashlight', 'an old flashlight', True)
+    super().__init__('flashlight', 'an old flashlight')
     self.state = 'dead' # start out dead
 
   # What happens when we 'use' the Flashlight depends on its state.
@@ -27,6 +27,10 @@ class Flashlight(Thing):
     'on': ('You turned the flashlight off', 'off')
   }
 
+  # When some part of the game needs to check the state of the Flashlight
+  def get_state(self):
+    return self.state
+    
   # When we examine the Flashlight, describe it, but also show what state it's in
   def examine(self, word_list, player, place, in_inventory):
     print(self.description)
@@ -67,7 +71,7 @@ class Flashlight(Thing):
 class Battery(Thing):
   def __init__(self):
     # Call the init of the base Thing to set the name and description
-    super().__init__('battery', 'a new battery', True)
+    super().__init__('battery', 'a new battery')
   
   # This combine is very much like the one in Flashlight, but self and other are swapped
   def combine(self, word_list, player, place, in_inventory):
@@ -75,3 +79,14 @@ class Battery(Thing):
     if other != None:
       other.new_battery()
       player.remove_from_inventory(self)
+
+
+# A can of radioactive lima beans
+class LimaBeans(Thing):
+  def __init__(self):
+    super().__init__('beans', 'a can of lima beans that seems to be glowing')
+
+  def action(self, player, in_inventory):
+    if in_inventory:
+      print('The can of beans is glowing.  It hurts to hold.')
+      player.change_health(-10)
