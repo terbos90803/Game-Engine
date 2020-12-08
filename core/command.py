@@ -1,7 +1,6 @@
 # Get input from the player and parse it
 
-from path import Door
-import utils
+from core.utils import type_quick, type_slow
 
 
 # A new command is created every time around the main loop
@@ -39,7 +38,7 @@ class Command:
 
     # Display the list of valid commands
     def help(self):
-      utils.type_quick([
+      type_quick([
         'Basic Commands:', 
         ' - quit - end the game',
         ' - look - review the full description of the current place',

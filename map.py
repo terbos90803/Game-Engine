@@ -1,7 +1,7 @@
 # The game map
 
-from place import Place
-from path import *
+from core.place import Place
+from core.path import *
 from objects import *
 from places import *
 

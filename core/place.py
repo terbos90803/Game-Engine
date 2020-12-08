@@ -1,6 +1,6 @@
 # Defines the class of places
 
-import utils
+from core.utils import print_list, same_word, type_quick, type_slow
 
 # The methods on this class are mostly accessors and should be self-explanatory
 
@@ -35,7 +35,7 @@ class Place:
       items = []
       for i in self.contents:
         items.append(i.get_name())
-      utils.print_list('You see: ', items)
+      print_list('You see: ', items)
   
   def get_path_names(self):
     names = []
@@ -48,19 +48,19 @@ class Place:
 
   # Describe this place
   def describe(self, player, force_describe = False):
-    typer = (utils.type_quick if self.visited else utils.type_slow)
+    typer = (type_quick if self.visited else type_slow)
     typer(['You are in ' + self.name])
     if force_describe or not self.visited:
       typer(self.description)
       self.print_contents()
-      utils.print_list('You can go: ', self.get_path_names())
+      print_list('You can go: ', self.get_path_names())
       self.visited = True
 
   # Lookup an item by name in this Place.
   # return the item if it's here.
   def get_item(self, item_name):
     for i in self.contents:
-      if utils.same_word(i.get_name(), item_name):
+      if same_word(i.get_name(), item_name):
         return i;
     return None
 

@@ -1,12 +1,12 @@
 ToDo:
 - improved fast/slow typer - ??? Improved how?
-- better comments in utils
 - dynamic names of Things - How is this different from what is there now?
 
 Doing:
 - better handling of interactions between Things - fold combine into use, allow flexible order of combination
 
 Done:
+- better comments in utils
 - actions for objects
 - improved help text formatting
 - easy name change for Path (e.g. Lane, Street, etc) without deriving

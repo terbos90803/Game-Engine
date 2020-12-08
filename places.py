@@ -1,5 +1,5 @@
-from place import Place
-from thing import Thing
+from core.place import Place
+from core.thing import Thing
 from objects import LimaBeans
 
 

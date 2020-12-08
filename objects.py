@@ -1,6 +1,6 @@
 # all the functional objects in the game
 
-from thing import Thing
+from core.thing import Thing
 
 # If you just want to have a non-functional thing that only has a name and description,
 # you can just create a Thing() in map.py.

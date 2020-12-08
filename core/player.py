@@ -1,6 +1,6 @@
 # Defines the player
 
-import utils
+from core.utils import print_list, same_word
 
 class Player:
   def __init__(self, place, health=100, inventory=set()):
@@ -21,7 +21,7 @@ class Player:
       items.append(i.get_name())
     if len(items) == 0:
       items = ['nothing']
-    utils.print_list('You have: ', items)
+    print_list('You have: ', items)
 
   def is_playing(self):
     return self.playing and self.is_alive()
@@ -34,6 +34,8 @@ class Player:
 
   def change_health(self, amount):
     self.health += amount
+    changed = 'increased' if amount > 0 else 'decreased'
+    print(f'Your health {changed} by {abs(amount)} percent')
     if self.health <= 0:
       self.die()
     elif self.health > 100:
@@ -54,7 +56,7 @@ class Player:
       else:
         print(verb, 'is blocked.', connection[0].why_blocked())
       return True
-    if utils.same_word(verb, 'health'):
+    if same_word(verb, 'health'):
       print(f'You are feeling {self.get_health()}% healthy')
       return True
     return False
@@ -63,7 +65,7 @@ class Player:
   # If found, return the item.
   def get_in_inventory(self, item_name):
     for i in self.inventory:
-      if utils.same_word(i.get_name(), item_name):
+      if same_word(i.get_name(), item_name):
         return i
     return None
 

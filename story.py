@@ -1,14 +1,14 @@
 # All of the story wrapper bits
-import utils
+from core.utils import type_slow
 
 def intro(player):
-  utils.type_slow([
+  type_slow([
     'You wake up itchy.', 
     'You have no idea how you got here.'],
     after_space=1)
 
 
 def ending(player):
-  utils.type_slow([
+  type_slow([
     'Game Over', 
     'Thanks for playing!'])
